@@ -1,0 +1,40 @@
+{% extends "web/base.html" %}
+{% load static %}
+{% block content %}
+
+<div class="videos"> 
+    <h1>History</h1>
+    <div class="videos__container ">
+        {% if user.is_authenticated %}
+            <!-- Single Video starts -->
+            {% if watched_videos %}
+                {% for entry in watched_videos %}
+                    <div class="video">
+                        <div class="video__thumbnail">
+                            <img src="{{entry.video.thumbnail.url}}" alt="" />
+                        </div>
+                        <div class="video__details">
+                            <div class="author mt-2">
+                                <img src="{{entry.video.channel.channel_profile.url}}" alt="" />
+                            </div>
+                            <div class="title">
+                                <h3>
+                                {{entry.video.title}}
+                                </h3>
+                                <a href="">{{entry.video.channel.channel_name}}</a>
+                                <span>{{entry.video.no_of_views}} Views • {{entry.video.duration}} Ago</span>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            <!-- Single Video Ends -->
+            {% else %}
+                <p>No videos in the watched history.</p>
+            {% endif %}	  
+        {% else %}
+            <p>Please login to view your watched history.</p>
+        {% endif %}
+    </div>
+</div>	
+
+{% endblock %}

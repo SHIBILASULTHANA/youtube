@@ -1,0 +1,40 @@
+{% extends "web/base.html" %}
+{% load static %}
+{% block content %}
+<div class="videos"> 
+  <h1>Liked Videos</h1>
+  <div class="videos__container">
+      {% if user.is_authenticated %}
+          <!-- Single Video starts -->
+          {% if liked_videos %}
+          {% for liked_video in liked_videos %}
+                  <div class="video">
+                      <a href="{% url 'video_detailpage' liked_video.id %}">
+                      <div class="video__thumbnail">
+                          <img src="{{liked_video.thumbnail.url}}" alt="" />
+                      </div>
+                      </a>
+                      <div class="video__details">
+                          <div class="author mt-2">
+                              <img src="{{ liked_video.channel.channel_profile.url }}" alt="" />
+                          </div>
+                          <div class="title">
+                              <h3>
+                                {{ liked_video.title }}
+                              </h3>
+                              <a href="">{{ liked_video.channel.channel_name }}</a>
+                              <span>{{ liked_video.no_of_views }} Views • {{ liked_video.duration }} Ago</span>
+                          </div>
+                      </div>
+                  </div>
+              {% endfor %}
+          <!-- Single Video Ends -->
+          {% else %}
+              <p>No liked videos.</p>
+          {% endif %}	  
+      {% else %}
+          <p>Please login to view your watched history.</p>
+      {% endif %}
+  </div>
+</div>	
+{% endblock %}

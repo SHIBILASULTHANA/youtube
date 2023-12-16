@@ -1,0 +1,15 @@
+{% extends "web/base.html" %}
+{% load static %}
+{% block content %}
+<div class="videos">
+    <h1>Kindly share your Feedback for further enhancement</h1>
+    <br> 
+    <div class="ml-5">
+        <form method="post" action="{% url 'feedback' %}">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit"class="bg-danger text-light pl-3 pr-3">Submit Feedback</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

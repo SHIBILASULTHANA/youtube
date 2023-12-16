@@ -1,0 +1,81 @@
+{% extends "web/base.html" %}
+{% load static %}
+{% block content %}
+
+<!-- Videos Section -->
+<div class="videos">
+  <img src="{{ channel.channel_profile.url }}" style="width:100%; height:40vh" alt="{{ channel.channel_name }} Profile" />
+  <div class="row mt-4 ml-3">
+    <div class="col">
+      <img src="{{ channel.channel_profile.url }}" style="width:100px; height:100px; border-radius:50%" alt="{{ channel.channel_name }} Profile" /> 
+    </div>
+    <div class="col mr-5">
+      <h2 class="row">{{ channel.channel_name }}</h2>
+        <div class="subscribe row">   
+          {% if user.is_authenticated %}
+            <form method="post" action="{% url 'subscribe' channel_id=channel.id %}">
+              {% csrf_token %}
+              <button class="subscribe-button bg-danger text-light pl-3 pr-3" type="submit" >
+                {% if user_subscribed %}
+                  SUBSCRIBED
+                {% else %}            
+                  SUBSCRIBE
+                {% endif %}
+              </button> 
+            </form>
+          {% else %}
+          <a href="{% url 'auth_login' %}">
+            <button class="subscribe-button bg-danger text-light pl-3 pr-3" type="submit" >           
+              SUBSCRIBE
+            </button> 
+          </a>
+          {% endif %}
+          <i class="far fa-bell fa-lg ml-3 mt-3"></i>
+        </div>
+    </div>
+  </div>
+  <br>
+    <h1>Videos</h1>
+    <br>  
+    <div class="videos__container">
+        {% if videos %}
+            <!-- Single Video starts -->
+            {% for video in videos %}
+            <div class="video">
+              {% if user.is_authenticated %}
+              <a href="{% url 'video_detailpage' video.id %}">
+                <div class="video__thumbnail">
+                  <img src="{{video.thumbnail.url}}" alt="" />
+                </div>
+              </a>
+              {% else %}
+              <a href="{% url 'auth_login' %}">
+                <div class="video__thumbnail">
+                  <img src="{{video.thumbnail.url}}" alt="" />
+                </div>
+              </a>
+              {% endif %}
+                <div class="video__details">
+                <div class="author  mt-2">
+                    <a href="">
+                    <img src="{{video.channel.channel_profile.url}}" alt="" />
+                    </a>
+                </div>
+                <div class="title">
+                    <h3>
+                    {{video.title}}
+                    </h3>
+                    <a href="">{{video.channel.channel_name}}</a>
+                    <span>{{video.no_of_views}} Views • {{video.duration}} Ago</span>
+                </div>
+                </div>
+            </div>
+            {% endfor %}
+            <!-- Single Video Ends -->	  
+        {% else %}
+            <p>No videos available for this channel.</p>
+        {% endif %}
+    </div>
+</div>	
+
+{% endblock %}

@@ -1,0 +1,123 @@
+<!-- Sidebar Starts -->
+<div class="sidebar">
+    <div class="sidebar__categories">
+        <a href="{% url "index" %}">
+            <div class="sidebar__category">
+            <i class="material-icons">home</i>
+            <span>Home</span>
+            </div>
+        </a>
+        <a href="{% url "trending" %}">
+            <div class="sidebar__category">
+                <i class="material-icons">local_fire_department</i>
+                <span>Trending</span>
+            </div>
+        </a>
+        <a href="{% url "channels" %}">
+            <div class="sidebar__category">
+                <i class="material-icons">library_add_check</i>
+                <span>Channels</span>
+            </div>
+        </a>
+    </div>
+    <hr />
+    <div class="sidebar__categories">
+        {% if user.is_authenticated %}
+        <a href="{% url "subscriptions" %}">
+            <div class="sidebar__category">
+                <i class="material-icons">subscriptions</i>
+                <span>Subscriptions</span>
+            </div>
+        </a>
+        <a href="{% url 'liked_videos' %}">
+            <div class="sidebar__category">
+            <i class="material-icons">thumb_up</i>
+            <span>Liked Videos</span>
+            </div>
+        </a>
+        <a href="{% url "history" %}">
+            <div class="sidebar__category">
+                <i class="material-icons">history</i>
+                <span>History</span>
+            </div>
+        </a>
+        {% else %}
+        <a href="{% url 'auth_login' %}">
+            <div class="sidebar__category">
+                <i class="material-icons">subscriptions</i>
+                <span>Subscriptions</span>
+            </div>
+        </a>
+        <a href="{% url 'auth_login' %}">
+            <div class="sidebar__category">
+            <i class="material-icons">thumb_up</i>
+            <span>Liked Videos</span>
+            </div>
+        </a>
+        <a href="{% url 'auth_login' %}">
+            <div class="sidebar__category">
+                <i class="material-icons">history</i>
+                <span>History</span>
+            </div>
+        </a>
+        {% endif %}
+    </div>
+    <hr />
+    <div class="sidebar__categories">
+        {% if user.is_authenticated %}
+        <a href="{% url 'auth_logout' %}">
+            <div class="sidebar__category">
+                <i class="material-icons">logout</i>
+                <span>Logout</span>
+            </div>
+        </a>
+        {% else %}
+        <a href="{% url 'auth_login' %}">
+            <div class="sidebar__category">
+                <i class="material-icons">login</i>
+                <span>Login</span>
+            </div>
+        </a>
+        {% endif %} 
+        {% if user.is_authenticated %}
+            {% if is_create_channer %}
+                <a href="{% url "create_channel" %}">
+                    <div class="sidebar__category">
+                    <i class="material-icons">create_new_folder</i>
+                    <span>Create Channel</span>
+                    </div>
+                </a>
+                <a href="{% url "upload_video" %}">
+                    <div class="sidebar__category">
+                    <i class="material-icons">video_call</i>
+                    <span>Upload Video</span>
+                    </div>
+                </a>
+            {% else %}
+                <a href="{% url "create_channel" %}">
+                    <div class="sidebar__category">
+                    <i class="material-icons">create_new_folder</i>
+                    <span>Create Channel</span>
+                    </div>
+                </a>
+            {% endif %}
+        {% endif %}
+    </div>
+    <hr />
+    <div class="sidebar__categories">
+        <a href="">
+            <div class="sidebar__category">
+                <i class="material-icons">contact_mail</i>
+                <span>About Us</span>
+            </div>
+        </a>
+        <a href="{% url "feedback" %}">
+            <div class="sidebar__category">
+                <i class="material-icons">feedback</i>
+                <span>Feedback</span>
+            </div>
+        </a>
+    </div>
+    <hr/>
+</div>
+<!-- Sidebar Ends -->

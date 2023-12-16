@@ -1,0 +1,48 @@
+{% extends "web/base.html" %}
+{% load static %}
+{% block content %}
+<div class="videos">
+  <div class="video_area">  
+      <div class="ad_area">
+        <video width="640" height="350" controls autoplay>
+            <source src="{{ video.video_file.url }}" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+        <div class="video__details ">
+          <div class="author  mt-2">
+            <a href="{% url 'channel_detailpage' video.id %}">
+            <img src="{{video.channel.channel_profile.url}}" alt="" />
+            </a>
+          </div>
+          <div class="title">
+            <h3>
+              {{video.title}}
+            </h3>
+            <a href="">{{video.channel.channel_name}}</a>
+            <span>{{video.no_of_views}} Views • {{video.duration}} Ago</span>
+          </div>
+          <div class="row ml-5 bl-5 pl-5">
+            <form method="post" action="{% url 'like_video' id=video.id %}">
+              {% csrf_token %}
+              <button type="submit">
+                  {% if request.user in video.likes.all %}
+                  <i class="fa fa-heart  fa-lg m-2 " style="color:red"></i>
+                  {% else %}
+                  <i class="fa fa-heart  fa-lg m-2" style="color:black"></i>
+                  {% endif %}
+              </button>
+            </form>
+          </div>
+          <div class="subscribe ml-5">
+            <button class="subscribe-button bg-danger text-light pl-3 pr-3">
+              <a href="{% url 'download_video' video_id=video.id %}">Download</a>
+            </button> 
+            <i class="far fa-bell fa-lg ml-3"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
+{% endblock %}
+
+

@@ -1,0 +1,29 @@
+{% extends "web/base.html" %}
+{% block content %}
+<div class="videos">
+    <h1>All Channels</h1>
+    <br> 
+    <div class="videos_container text-center" style="width: 60%;">
+        {% if all_channels %}
+        {% for channel in all_channels %}
+        <div class="row align-items-center fs-1">
+            {% if channel.channel_profile %}
+            <div class="col">
+                <img src="{{ channel.channel_profile.url }}" style="width:100px; height:100px; border-radius:50%" alt="{{ channel.channel_name }} Profile Picture">
+            </div>
+            {% endif %}
+            <div class="col">
+                {{ channel.channel_name }}
+            </div>
+            <div class="col">
+                <a href="{% url 'channel_detailpage' channel.id %}">More About This Channel ></a>
+            </div>
+        </div>
+        <br>
+        {% endfor %}
+        {% else %}
+            <p>No channels available.</p>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

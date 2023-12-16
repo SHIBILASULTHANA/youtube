@@ -1,0 +1,15 @@
+{% extends "web/base.html" %}
+
+{% block content %}
+<div class="videos">
+    <h1>Upload a Video</h1>
+    <br> 
+    <div class="ml-5">
+        <form method="post" action="{% url 'upload_video' %}" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="bg-danger text-light pl-3 pr-3 ">Upload Video</button>
+        </form>
+    </div>
+</div>
+{% endblock %}
